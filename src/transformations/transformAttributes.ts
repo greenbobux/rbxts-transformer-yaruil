@@ -1,4 +1,4 @@
-import ts, { consumesNodeCoreModules, factory, isAssertsKeyword } from "byots";
+import ts, { factory } from "byots";
 import { Context } from "../Context";
 
 export function transformAttributes(
@@ -7,6 +7,7 @@ export function transformAttributes(
 ): ts.ObjectLiteralElementLike[] {
 	const properties = node.properties;
 	const transformed: ts.ObjectLiteralElementLike[] = [];
+
 	if (properties)
 		properties.forEach((property) => {
 			if (ts.isJsxAttribute(property)) {
@@ -17,7 +18,6 @@ export function transformAttributes(
 					if (ts.isJsxExpression(property.initializer)) {
 						const expression = property.initializer.expression;
 						if (expression) {
-
 							initializer = property.initializer.expression;
 						} else {
 							initializer = factory.createTrue();

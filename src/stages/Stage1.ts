@@ -10,9 +10,10 @@ export class JsxElement extends Stage<ts.JsxElement> {
 		const element = transformElement(
 			node.openingElement.tagName,
 			this.context,
-			[] as never,
+			node.openingElement.attributes,
 			node.children
 		);
+
 		return element;
 	}
 }

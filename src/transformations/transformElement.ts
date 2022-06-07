@@ -1,4 +1,4 @@
-import ts, { classicNameResolver, factory } from "byots";
+import ts, { factory } from "byots";
 import { Context } from "../Context";
 import { transformChildren } from "./transformChildren";
 import { transformAttributes } from "./transformAttributes";
@@ -35,20 +35,4 @@ export function transformElement(
 			factory.createArrayLiteralExpression(transformedChildren, false),
 		]
 	);
-	// return factory.createCallExpression(
-	// 	factory.createPropertyAccessExpression(
-	// 		factory.createIdentifier("Yaruil"),
-	// 		factory.createIdentifier("createElement")
-	// 	),
-	// 	undefined,
-	// 	[
-	// 		ts.isIntrinsicJsxName(element.getText())
-	// 			? factory.createStringLiteralFromNode(
-	// 					factory.createIdentifier(element.getText())
-	// 			  )
-	// 			: factory.createIdentifier(element.getText()),
-	// 		factory.createObjectLiteralExpression(transformedAttributes, false),
-	// 		factory.createObjectLiteralExpression(transformedChildren, false),
-	// 	]
-	// );
 }
