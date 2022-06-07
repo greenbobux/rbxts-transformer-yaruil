@@ -1,5 +1,4 @@
 import ts, { factory } from "byots";
-import { Context } from "../Context";
 import { transformChildren } from "./transformChildren";
 import { transformAttributes } from "./transformAttributes";
 import { readFileSync } from "fs";
@@ -9,15 +8,14 @@ const classes = JSON.parse(
 ) as { [key: string]: string };
 export function transformElement(
 	element: ts.JsxTagNameExpression,
-	context: Context,
 	attributes: ts.JsxAttributes,
 	children?: ts.NodeArray<ts.JsxChild>
 ): ts.CallExpression {
 	const transformedChildren: ts.Expression[] = children
-		? transformChildren(children, context)
+		? transformChildren(children)
 		: [];
 	const transformedAttributes: ts.ObjectLiteralElementLike[] = attributes
-		? transformAttributes(attributes, context)
+		? transformAttributes(attributes)
 		: [];
 	return factory.createCallExpression(
 		factory.createPropertyAccessExpression(

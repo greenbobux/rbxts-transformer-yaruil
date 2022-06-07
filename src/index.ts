@@ -1,10 +1,8 @@
 import ts from "byots";
-import { Context, Stage } from "./Context";
-import { JsxElement, JsxSelfClosingElement } from "./stages/Stage1";
+import { TransformContext } from "./Context";
 
 // All stages must be in this list, and will run in the order of the list.
 // eslint-disable-next-line prettier/prettier
-const stages = [JsxElement, JsxSelfClosingElement];
 
 /**
  * This is the transformer's configuration, the values are passed from the tsconfig.
@@ -19,18 +17,15 @@ export interface TransformerConfig {
  */
 export default function (program: ts.Program, config: TransformerConfig) {
 	return (
-		context: ts.TransformationContext
+		transformationContext: ts.TransformationContext
 	): ((file: ts.SourceFile) => ts.Node) => {
-		Context.Instance = undefined!;
-		const transformContext = new Context(program, config, context, stages);
-		let transformed: Map<ts.SourceFile, ts.SourceFile>;
+		const context = new TransformContext(
+			program,
+			transformationContext,
+			config
+		);
 		return (file: ts.SourceFile) => {
-			if (!transformed) {
-				transformed = transformContext.transformAll(
-					program.getSourceFiles()
-				);
-			}
-			return transformed.get(file) ?? file;
+			return context.transform(file);
 		};
 	};
 }

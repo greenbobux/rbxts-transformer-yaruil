@@ -1,9 +1,7 @@
 import ts, { factory } from "byots";
-import { Context } from "../Context";
 
 export function transformAttributes(
-	node: ts.JsxAttributes,
-	context: Context
+	node: ts.JsxAttributes
 ): ts.ObjectLiteralElementLike[] {
 	const properties = node.properties;
 	const transformed: ts.ObjectLiteralElementLike[] = [];
