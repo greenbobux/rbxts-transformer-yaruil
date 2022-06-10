@@ -7,6 +7,5 @@ beware of spaghetti code
 
 Once you've installed the transformer, add this to your tsconfig.json
 ```json
-"types": ["rbxts-transformer-yaruil"],
 "plugins": [{"transform": "rbxts-transformer-yaruil"}]
 ```
